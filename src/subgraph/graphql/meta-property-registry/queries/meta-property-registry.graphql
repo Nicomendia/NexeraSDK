@@ -1,0 +1,83 @@
+query Managers($filter: PropertyManager_filter) {
+    propertyManagers(where: $filter) {
+        id
+        name
+        minter
+        manager
+        sender
+        categories {
+            id
+            allowSplit
+            category
+            properties {
+                id
+                value
+                transactionHash
+                blockNumber
+                blockTimestamp
+            }
+        }
+    }
+}
+
+query Categories($filter: Category_filter) {
+    categories(where: $filter) {
+        id
+        allowSplit
+        category
+        manager {
+            manager
+            minter
+            name
+            id
+            sender
+        }
+        properties {
+            id
+            value
+            transactionHash
+            blockNumber
+            blockTimestamp
+        }
+    }
+}
+
+query Properties($filter: Property_filter) {
+    properties(where: $filter) {
+        id
+        value
+        transactionHash
+        blockNumber
+        blockTimestamp
+        category {
+            id
+            allowSplit
+            category
+            manager {
+                manager
+                minter
+                name
+                id
+                sender
+            }
+        }
+    }
+}
+
+query ERC721s($filter: NFT_filter) {
+    nfts(where: $filter) {
+        id
+        manager {
+            manager
+            minter
+            name
+            id
+            sender
+        }
+        owner
+        tokenId
+        transactionHash
+        blockTimestamp
+        blockNumber
+    }
+}

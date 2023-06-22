@@ -1,0 +1,70 @@
+input BalancesInput {
+    metaNftIds: [BigInt!]
+    tokenTypes: [BigInt!]
+    tokens: [Bytes!]
+}
+
+query Balances($input: WrappedBalance_filter) {
+    wrappedBalances(where: $input) {
+        id
+        amount
+        metaNftId
+        nftTokenID
+        restrictionId
+        token
+        tokenType
+    }
+}
+
+query History($metaNftIds: [BigInt!]) {
+    rewrappedEvents(where: { metaNftId_in: $metaNftIds }) {
+        id
+        metaNftId
+        token
+        amount
+        tokenType
+        unlockTimestamp
+        oldRestrictionId
+        newRestrictionId
+        blockNumber
+        blockTimestamp
+        transactionHash
+    }
+    unwrappedEvents(where: { metaNftId_in: $metaNftIds }) {
+        id
+        metaNftId
+        oldRestrictionId
+        token
+        tokenType
+        blockNumber
+        blockTimestamp
+        transactionHash
+    }
+    wrappedEvents(where: { metaNftId_in: $metaNftIds }) {
+        id
+        metaNftId
+        token
+        amount
+        tokenType
+        unlockTimestamp
+        restrictionId
+        blockNumber
+        blockTimestamp
+        transactionHash
+        nftTokenID
+    }
+    unwrappedPartiallyEvents(where: { metaNftId_in: $metaNftIds }) {
+        id
+        metaNftId
+        token
+        tokenType
+        account
+        amountPercentage
+        oldRestrictionId
+        newRestrictionId
+        blockNumber
+        blockTimestamp
+        transactionHash
+        nftTokenID
+    }
+}

@@ -1,0 +1,6 @@
+query MetaNfts($owners: [Bytes!], $orderDirection: OrderDirection!) {
+    metaNFTs(where: {owner_in: $owners}, orderDirection: $orderDirection) {
+        id
+        owner
+    }
+}

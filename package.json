@@ -1,0 +1,72 @@
+{
+  "name": "nexera-low-level-sdk",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/nexeraprotocol-subgraph-client.cjs.js",
+  "module": "dist/nexeraprotocol-subgraph-client.esm.js",
+  "scripts": {
+    "codegen-wrapper": "graphql-codegen --config src/subgraph/graphql/wrapper/codegen.ts",
+    "codegen-mnft": "graphql-codegen --config src/subgraph/graphql/mnft/codegen.ts",
+    "codegen-property-registry": "graphql-codegen --config src/subgraph/graphql/meta-property-registry/codegen.ts",
+    "codegen-compliance-property-manager": "graphql-codegen --config src/subgraph/graphql/compliance-property-manager/codegen.ts",
+    "codegen-identity-diamond": "graphql-codegen --config src/subgraph/graphql/identity-diamond/codegen.ts",
+    "codegen": "pnpm codegen-wrapper && pnpm codegen-mnft && pnpm codegen-property-registry && pnpm codegen-compliance-property-manager && pnpm codegen-identity-diamond",
+    "build": "preconstruct build && npm run copy-package-json-to-dist",
+    "copy-package-json-to-dist": "copyfiles package.json dist/",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "files": [
+    "/dist"
+  ],
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.5",
+    "@graphql-codegen/client-preset": "^1.3.0",
+    "@graphql-codegen/typescript": "^2.8.8",
+    "@graphql-codegen/typescript-graphql-request": "^4.5.9",
+    "@graphql-codegen/typescript-operations": "^2.5.13",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@manypkg/cli": "^0.20.0",
+    "@preconstruct/cli": "^2.7.0",
+    "@types/prettier": "^2.7.3",
+    "copyfiles": "^2.4.1",
+    "eslint-config-turbo": "^1.10.3",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.2.8",
+    "syncpack": "^8.5.14",
+    "turbo": "^1.10.3",
+    "eslint": "^8.43.0",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@nexeraprotocol/nexera-service-registry": "1.2.210-dev",
+    "graphql": "^16.6.0",
+    "graphql-request": "5.1.0",
+    "graphql-tag": "^2.12.6",
+    "zod": "^3.21.4",
+    "@types/eslint": "^8.40.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint-config-next": "^13.4.6",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-turbo": "^1.10.3",
+    "eslint-plugin-react": "7.32.2"
+  },
+  "peerDependencies": {
+    "graphql": "^16.6.0",
+    "graphql-request": "5.1.0"
+  }
+}

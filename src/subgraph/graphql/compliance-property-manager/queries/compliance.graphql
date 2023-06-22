@@ -1,0 +1,46 @@
+query verifications($filter: Verification_filter) {
+    verifications(where: $filter) {
+        blockNumber
+        blockTimestamp
+        transactionHash
+        id
+        mid
+        rkey
+        validity
+    }
+}
+
+query revocations($filter: Revokation_filter) {
+    revokations(where: $filter) {
+        rkey
+        mid
+        id
+        transactionHash
+        blockTimestamp
+        blockNumber
+    }
+}
+
+query Rules {
+    groupRuleAddeds {
+        id
+        transactionHash
+        blockNumber
+        blockTimestamp
+        rule_enabled
+        rule_groups
+        rule_operator
+        rule_validityPeriod
+    }
+
+    numberThresholdRuleAddeds {
+        id
+        transactionHash
+        blockNumber
+        blockTimestamp
+        rule_enabled
+        rule_validityPeriod
+        rule_operator
+        rule_numberThreshold
+    }
+}

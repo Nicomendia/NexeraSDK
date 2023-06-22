@@ -1,0 +1,172 @@
+query SmartWallets($filter: SmartWalletEntity_filter) {
+  smartWalletEntities(where: $filter) {
+    id
+    mnft
+    wallet
+    enabled
+    implementation
+    blockTimestamp
+    blockNumber
+    transactionHash
+    approvals {
+      id
+      mnft
+      blockTimestamp
+      blockNumber
+      transactionHash
+    }
+  }
+}
+
+query RuleHistory(
+  $ruleAddedFilter: RuleAdded_filter
+  $ruleAssignedFilter: RuleAssigned_filter
+  $ruleDeletedFilter: RuleDeleted_filter
+) {
+  ruleAddeds(where: $ruleAddedFilter) {
+    id
+    mnft
+    ruleNum
+    blockNumber
+    blockTimestamp
+    transactionHash
+  }
+  # rules are being overwritten as they are being added for same Mnft and same operation
+  ruleAssigneds(where: $ruleAssignedFilter) {
+    id
+    mnft
+    operation
+    ruleNum
+    blockNumber
+    blockTimestamp
+    transactionHash
+  }
+  ruleDeleteds(where: $ruleDeletedFilter) {
+    id
+    mnft
+    ruleNum
+    blockNumber
+    blockTimestamp
+    transactionHash
+  }
+}
+
+query Rules($filter: Rule_filter) {
+  rules(where: $filter) {
+    id
+    mnft
+    ruleNum
+    blockNumber
+    blockTimestamp
+    transactionHash
+    deleted
+    identities {
+      identity {
+        id
+        verifier
+      }
+    }
+    required
+    operations {
+      id
+      mnft
+      operationName
+      operationHash
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+}
+
+query Operations($filter: Operation_filter) {
+  operations(where: $filter) {
+    id
+    mnft
+    operationName
+    operationHash
+    rule {
+      identities {
+        identity {
+          id
+          verifier
+        }
+      }
+      required
+      id
+      mnft
+      ruleNum
+      deleted
+    }
+    blockNumber
+    blockTimestamp
+    transactionHash
+  }
+}
+
+query Approvals($filter: Approval_filter) {
+  approvals(where: $filter) {
+    id
+    mnft
+    smartWallet {
+      id
+      mnft
+      wallet
+    }
+    tokenSelector # which function
+    tokenTarget # which erc20 token
+    blockNumber
+    blockTimestamp
+    transactionHash
+    deleted
+    approvalUsedEntity {
+      id
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+    actualData
+    initialData
+    target
+    selector
+  }
+}
+
+query RulesByCredentialsAndOperation(
+  $identities: [String!]
+  $operationHash: String!
+  $deleted: Boolean
+) {
+  rules(
+    where: {
+      operations_: { operationHash: $operationHash }
+      identities_: { identity_in: $identities }
+      deleted: $deleted
+    }
+  ) {
+    id
+    mnft
+    ruleNum
+    blockNumber
+    blockTimestamp
+    transactionHash
+    deleted
+    identities {
+      id
+      identity {
+        id
+        verifier
+      }
+    }
+    required
+    operations {
+      id
+      mnft
+      operationName
+      operationHash
+      blockNumber
+      blockTimestamp
+      transactionHash
+    }
+  }
+}
