@@ -2,8 +2,8 @@
   "name": "nexera-low-level-sdk",
   "version": "1.0.1",
   "description": "",
-  "main": "dist/nexeraprotocol-subgraph-client.cjs.js",
-  "module": "dist/nexeraprotocol-subgraph-client.esm.js",
+  "main": "dist/nexera-low-level-sdk.cjs.js",
+  "module": "dist/nexera-low-level-sdk.esm.js",
   "scripts": {
     "codegen-wrapper": "graphql-codegen --config src/subgraph/graphql/wrapper/codegen.ts",
     "codegen-mnft": "graphql-codegen --config src/subgraph/graphql/mnft/codegen.ts",
